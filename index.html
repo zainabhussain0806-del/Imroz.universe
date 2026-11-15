@@ -1,0 +1,572 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#24182f">
+<title>Where Fairytales Begin ♡</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Great+Vibes&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --lavender:#d8c3ef;
+  --pink:#f4d9e9;
+  --deep:#241a39;
+  --soft:#f8efff;
+  --gold:#f6dfae;
+}
+
+* {
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+html,body {
+  width:100%;
+  height:100%;
+  margin:0;
+  padding:0;
+  overflow:hidden !important;
+}
+
+body {
+  color:var(--soft);
+  font-family:'Cormorant Garamond',serif;
+  background:
+    radial-gradient(ellipse at 20% 10%,#75568e 0%,transparent 35%),
+    radial-gradient(ellipse at 85% 40%,#704e82 0%,transparent 38%),
+    linear-gradient(160deg,#21182f,#392746 48%,#21182f);
+}
+
+button {font-family:inherit}
+
+#sky {
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  overflow:hidden;
+  z-index:1;
+}
+
+.scene {
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  height:100dvh;
+  min-height:0;
+  padding:65px 22px;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  overflow-x:hidden;
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  z-index:2;
+  isolation:isolate;
+}
+
+.scene.active {
+  display:flex;
+  animation:sceneFade .8s ease both;
+}
+
+@keyframes sceneFade {
+  from {opacity:0;transform:scale(1.015)}
+  to {opacity:1;transform:scale(1)}
+}
+
+.scene::before {
+  content:"";
+  position:fixed;
+  inset:15px;
+  border:1px solid #e8d4f044;
+  border-radius:30px;
+  pointer-events:none;
+  z-index:-1;
+}
+
+.content {
+  position:relative;
+  z-index:3;
+  width:min(100%,680px);
+  margin:auto;
+}
+
+.eyebrow {
+  font-family:Montserrat,sans-serif;
+  font-size:10px;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  color:#f1d8ee;
+  margin-bottom:22px;
+}
+
+.script {
+  font-family:'Great Vibes',cursive;
+  font-size:clamp(48px,12vw,82px);
+  line-height:1.05;
+  color:#f9e8f5;
+  text-shadow:0 0 22px #f4c9ee88;
+  margin:10px 0 20px;
+}
+
+h2 {
+  font-weight:400;
+  font-size:clamp(34px,8vw,52px);
+  line-height:1.1;
+  margin:12px 0 22px;
+  color:#f7e9f6;
+}
+
+p {
+  font-size:clamp(19px,4.8vw,23px);
+  line-height:1.65;
+  color:#f0e3f1;
+  margin:12px auto;
+}
+
+.small {
+  font-family:Montserrat,sans-serif;
+  font-size:11px;
+  letter-spacing:2px;
+  color:#dfc8e7;
+  line-height:1.8;
+}
+
+.glow-line {
+  width:90px;
+  height:1px;
+  margin:26px auto;
+  background:linear-gradient(90deg,transparent,#f8dcae,transparent);
+  box-shadow:0 0 12px #f8dcae;
+}
+
+.action {
+  border:1px solid #f1d9ef99;
+  color:#fff4ff;
+  background:linear-gradient(120deg,#ffffff18,#e8c9ef22);
+  padding:13px 27px;
+  border-radius:30px;
+  font-size:17px;
+  letter-spacing:1px;
+  margin-top:25px;
+  cursor:pointer;
+  box-shadow:0 0 22px #dcb9ef22;
+  transition:.3s;
+}
+
+.action:active {
+  transform:scale(.96);
+}
+
+.action:hover {
+  background:#f4d9e933;
+  box-shadow:0 0 25px #edc7f066;
+}
+
+.hint {
+  font-size:14px;
+  color:#d8c5e0;
+  margin-top:15px;
+  font-style:italic;
+}
+
+.petal,.sparkle,.butterfly {
+  position:absolute;
+  animation:floatUp linear infinite;
+  opacity:0;
+}
+
+.petal {
+  width:10px;
+  height:15px;
+  border-radius:90% 10% 90% 10%;
+  background:linear-gradient(135deg,#f9dff1,#b68bcf);
+  filter:drop-shadow(0 0 5px #f7d6f0);
+}
+
+.sparkle {
+  width:3px;
+  height:3px;
+  border-radius:50%;
+  background:#fff4ce;
+  box-shadow:0 0 9px 3px #f9e3c477;
+}
+
+.butterfly {
+  font-size:19px;
+  filter:drop-shadow(0 0 8px #f5d4ef);
+}
+
+@keyframes floatUp {
+  0% {transform:translateY(110vh) rotate(0deg);opacity:0}
+  15% {opacity:.8}
+  85% {opacity:.7}
+  100% {transform:translateY(-15vh) rotate(280deg);opacity:0}
+}
+
+.lantern {
+  position:absolute;
+  width:30px;
+  height:42px;
+  border:1px solid #f5dca977;
+  border-radius:45% 45% 35% 35%;
+  background:#f7dcae18;
+  box-shadow:0 0 30px #f5d9a955,inset 0 0 15px #ffe9b655;
+  animation:lantern 4s ease-in-out infinite alternate;
+}
+
+.lantern:after {
+  content:"";
+  position:absolute;
+  inset:9px;
+  border-radius:50%;
+  background:#ffe7ad;
+  filter:blur(9px);
+}
+
+@keyframes lantern {
+  to {transform:translateY(-18px);opacity:.65}
+}
+
+.rose {
+  font-size:42px;
+  filter:drop-shadow(0 0 15px #efb6db88);
+  margin:20px 0;
+}
+
+.glass-card {
+  border:1px solid #f3ddf055;
+  background:linear-gradient(145deg,#ffffff13,#ffffff05);
+  border-radius:25px;
+  padding:26px 22px;
+  box-shadow:0 15px 50px #130d222e,inset 0 0 25px #f3d9f011;
+  backdrop-filter:blur(8px);
+}
+
+.star-grid {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:13px;
+  margin:35px auto 18px;
+  max-width:430px;
+}
+
+.star {
+  border:1px solid #f5e0ff55;
+  background:#ffffff0b;
+  border-radius:18px;
+  aspect-ratio:1;
+  color:#ffe8b2;
+  font-size:29px;
+  cursor:pointer;
+  text-shadow:0 0 14px #ffe7b8;
+  box-shadow:0 0 18px #e6c7f022;
+  transition:.3s;
+}
+
+.star:hover,.star.opened {
+  background:#e8c9f52b;
+  transform:translateY(-4px);
+  box-shadow:0 0 25px #f0d4ff77;
+}
+
+#starMessage {
+  min-height:115px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-style:italic;
+  font-size:23px;
+  color:#fbeaf6;
+  padding:15px;
+}
+
+.reveal {
+  opacity:0;
+  transform:translateY(20px);
+  transition:opacity 1s ease,transform 1s ease;
+}
+
+.reveal.visible {
+  opacity:1;
+  transform:translateY(0);
+}
+
+.memory-date {
+  font-family:Montserrat,sans-serif;
+  font-size:12px;
+  letter-spacing:5px;
+  color:#f5dcae;
+}
+
+.date-number {
+  font-family:'Great Vibes',cursive;
+  font-size:clamp(65px,17vw,110px);
+  color:#f7e5f4;
+  text-shadow:0 0 30px #f2c7ee88;
+  line-height:1.1;
+  margin:18px 0;
+}
+
+.hidden-note {
+  display:none;
+  margin-top:22px;
+  animation:appear 1s ease;
+}
+
+.hidden-note.show {display:block}
+
+@keyframes appear {
+  from {opacity:0;transform:scale(.96)}
+  to {opacity:1;transform:scale(1)}
+}
+
+@media(max-width:390px) {
+  .scene {padding:55px 18px}
+  .star-grid {gap:9px}
+  .star {font-size:25px}
+}
+</style>
+</head>
+
+<body>
+
+<div id="sky"></div>
+
+<section class="scene active" id="begin">
+  <div class="lantern" style="top:12%;left:12%"></div>
+  <div class="lantern" style="top:22%;right:12%;animation-delay:1s"></div>
+
+  <div class="content">
+    <div class="eyebrow">A little universe made of feelings</div>
+    <div class="script">Where Fairytales Begin</div>
+    <div class="glow-line"></div>
+    <p>Some stories don't begin with a perfect plan.<br>Sometimes, they begin with one unexpected hello.</p>
+    <div class="rose">✿</div>
+    <p class="small">A JOURNEY FOR IMROZ</p>
+    <button class="action" onclick="goTo('stars')">Step into my little universe ✧</button>
+    <div class="hint">Take your time. There's no rush here.</div>
+  </div>
+</section>
+
+<section class="scene" id="stars">
+  <div class="content">
+    <div class="eyebrow">Chapter I · Little pieces of a story</div>
+    <h2>Seven little stars</h2>
+    <p>Har sitare ke andar ek chhoti si baat chhupi hai.<br>Choose any star and let it tell you something.</p>
+
+    <div class="star-grid">
+      <button class="star" onclick="openStar(0,this)">✧</button>
+      <button class="star" onclick="openStar(1,this)">✦</button>
+      <button class="star" onclick="openStar(2,this)">✧</button>
+      <button class="star" onclick="openStar(3,this)">✦</button>
+      <button class="star" onclick="openStar(4,this)">✧</button>
+      <button class="star" onclick="openStar(5,this)">✦</button>
+      <button class="star" onclick="openStar(6,this)">✧</button>
+    </div>
+
+    <div class="glass-card" id="starMessage">✨ Tap a star to reveal its secret.</div>
+    <button class="action" onclick="goTo('beginning')">Follow the little lights →</button>
+  </div>
+</section>
+
+<section class="scene" id="beginning">
+  <div class="content">
+    <div class="eyebrow">Chapter II · Once upon a random day</div>
+    <h2>And then, there was a hello...</h2>
+    <div class="rose">❀</div>
+
+    <div class="glass-card">
+      <p>Ek random group chat... do log... aur ek aisi conversation jiska koi plan nahi tha.</p>
+      <p>Phir waqt beeta, baatein ruk gayin, aur zindagi apni raahon par chalti rahi.</p>
+      <p>Magar kahani ne ek chhota sa twist liya — hum dobara baat karne lage.</p>
+    </div>
+
+    <p class="hint">Kabhi-kabhi ordinary moments bhi yaad reh jaate hain.</p>
+    <button class="action" onclick="goTo('insidejoke')">There's more to this story →</button>
+  </div>
+</section>
+
+<section class="scene" id="insidejoke">
+  <div class="content">
+    <div class="eyebrow">Chapter III · Our little nonsense</div>
+    <h2>Qabool hai!</h2>
+
+    <div class="glass-card">
+      <p>Me: "Katal kar dungi!"</p>
+      <div class="glow-line"></div>
+      <p>Imroz: "Qabool hai."</p>
+      <div class="glow-line"></div>
+      <p>And somehow, this became one of those silly little jokes that makes an ordinary conversation memorable.</p>
+    </div>
+
+    <div class="rose">♡</div>
+    <p>Some memories are made of big moments.<br>Some are made of the smallest jokes.</p>
+    <button class="action" onclick="goTo('unsaid')">A few words from my heart →</button>
+  </div>
+</section>
+
+<section class="scene" id="unsaid">
+  <div class="content">
+    <div class="eyebrow">Chapter IV · Things I never said</div>
+    <h2>Some feelings need no grand speech.</h2>
+
+    <div class="glass-card">
+      <p>There are little things I appreciate...</p>
+      <p>The conversations that make an ordinary day feel lighter.</p>
+      <p>The silly jokes that somehow become our own language.</p>
+      <p>The patience to understand that everyone has their own pace and boundaries.</p>
+      <p>And the simple comfort of being able to talk without pretending to be someone else.</p>
+    </div>
+
+    <button class="action" onclick="goTo('surprise')">One more little surprise →</button>
+  </div>
+</section>
+
+<section class="scene" id="surprise">
+  <div class="content">
+    <div class="eyebrow">Chapter V · A little surprise</div>
+    <h2>Under the petals...</h2>
+    <div class="rose">🌹</div>
+
+    <p>Not every beautiful thing has to be loud.<br>Some things are special simply because they are remembered.</p>
+
+    <button class="action" onclick="revealSurprise()">Open the hidden note ✧</button>
+
+    <div class="glass-card hidden-note" id="surpriseNote">
+      <p>Dear Imroz,</p>
+      <p>Thankyou so much aaryan for being a beautiful part of this chapter of my life 🫂🫶🏻. Loving a girl with strict parents and boundaries you respect, I hope you always find reason to smile,peaceful days to rest in. 🥹
+And people who understand you and your problems,stress and everything with kindness 🌍♥️</p>
+      <p>Some moments are worth keeping softly in the heart.</p>
+      <p style="text-align:right;font-style:italic">— from me ♡</p>
+    </div>
+
+    <button class="action" onclick="goTo('memory')">Visit a special date →</button>
+  </div>
+</section>
+
+<section class="scene" id="memory">
+  <div class="content">
+    <div class="eyebrow">Chapter VI · A date to remember</div>
+    <div class="memory-date">A LITTLE MEMORY, FOREVER IN THIS PAGE</div>
+    <div class="date-number">14 May<br>2025</div>
+    <div class="glow-line"></div>
+
+    <div class="glass-card">
+      <p>Kuch dates calendar par sirf numbers hoti hain...</p>
+      <p>Magar kuch dates kisi conversation, kisi feeling aur kisi chhoti si kahani ki yaad ban jaati hain.</p>
+      <p>For me, this one belongs to a moment I'll remember.</p>
+    </div>
+
+    <button class="action" onclick="goTo('final')">One last chapter →</button>
+  </div>
+</section>
+
+<section class="scene" id="final">
+  <div class="content">
+    <div class="eyebrow">The final chapter · But not the end of the sky</div>
+    <div class="script">And that's our little story...</div>
+    <div class="rose">❀ ♡ ❀</div>
+
+    <div class="glass-card">
+      <p>Imroz,</p>
+      <p>Imroz my love 🌍♥️🫶🏻
+
+Yeh ek choti si website maine izhaar-e-ishq bayan karne ke liye banayi hai sirf tumhe itna batane ke liye ki mai tumhe kitna chahti hu kitni mohabbat karti hu 🥺,
+Taaki koi aur tumhe mujhse cheen kar naa le jaye tumhe yeh naa lage ki zainab ne kya hi Kiya hai tumhare liye..🫠🫂
+Tbh sweetheart,mujhe yeh banate time meri mohabbat tumhare liye badh rahi hai...♥️🫶🏻
+I really want to spend my whole life with you loving you countlessly caring for you endlessly!!🥺🫠
+I again repeat my love for you is increasing day by day.. pls don't leave me...
+"Tu haal samjh mera jo tujhe paane ke baad hui hai...is be intehaan mohabbat ka mai kya karungi agar jo tu Naa Mila is Janam me banja mera humsafar🫴🏻🌹"
+Ohde ban ke main phiran parchhawan🫂
+Je kadi mera yaar mil jaye
+Ki mere naal kar gayon hath ve🫴🏻
+Mere magron vichhoreyan tu nath ve
+Jaa we meri jaan nu tu dhadha rog laaya
+Das khan vichhoreyan ne tera ki gawaya🌹
+Ja ve vichhoreya jaa ve vichhoreya
+Saara jag chhad mukh mere wal moreya
+Bhul gayiyan te rus gaye chah ve 💌
+Aj pata laga e vichhora ki bala e
+Ohde raahwan vich ankhiyan bichhawan👀
+Je kaddi mera yaar mil jaye😭❣️!!.</p>
+      <p style="text-align:right;font-style:italic">With warmth, always ♡</p>
+    </div>
+
+    <div class="glow-line"></div>
+    <p class="small">14 MAY 2025 · A LITTLE UNIVERSE OF ITS OWN</p>
+    <button class="action" onclick="goTo('begin')">Begin the journey again ↺</button>
+  </div>
+</section>
+
+<script>
+const starWords = [
+  "A random beginning can sometimes become a memory you didn't expect to keep.",
+  "Some conversations are remembered not for what was said, but for how they felt.",
+  "A silly inside joke can become a tiny piece of a shared story.",
+  "The little moments often stay longer than the grand gestures.",
+  "Being understood with patience is a beautiful kind of kindness.",
+  "Every person we meet leaves a different little mark on our timeline.",
+  "And this star? It simply says: this chapter mattered to me. ♡"
+];
+
+function goTo(id) {
+  const current = document.querySelector(".scene.active");
+  const next = document.getElementById(id);
+
+  if (!next || current === next) return;
+
+  if (current) {
+    current.classList.remove("active");
+  }
+
+  next.scrollTop = 0;
+  next.classList.add("active");
+}
+
+function openStar(index,button) {
+  document.querySelectorAll(".star").forEach(s => {
+    s.classList.remove("opened");
+  });
+
+  button.classList.add("opened");
+  document.getElementById("starMessage").textContent = starWords[index];
+}
+
+function revealSurprise() {
+  document.getElementById("surpriseNote").classList.add("show");
+}
+
+const sky = document.getElementById("sky");
+
+for (let i=0; i<28; i++) {
+  const item = document.createElement("span");
+  const type = i % 5;
+
+  item.className = type === 0 ? "butterfly" :
+                   type === 1 ? "sparkle" : "petal";
+
+  if (type === 0) item.textContent = "🦋";
+
+  item.style.left = Math.random()*100 + "%";
+  item.style.animationDuration = (13+Math.random()*18) + "s";
+  item.style.animationDelay = (-Math.random()*25) + "s";
+
+  sky.appendChild(item);
+}
+
+/* Always start at the welcome scene */
+document.querySelectorAll(".scene").forEach(scene => {
+  scene.classList.remove("active");
+});
+
+document.getElementById("begin").classList.add("active");
+</script>
+
+</body>
+</html>
